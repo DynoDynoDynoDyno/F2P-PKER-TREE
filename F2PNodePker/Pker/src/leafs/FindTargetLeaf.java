@@ -36,6 +36,11 @@ public class FindTargetLeaf extends Leaf {
         // Return wilderness level
         return Combat.getWildernessLevel();
     }
+    public boolean isLocalPlayerInCombat() {
+        // Return whether the local player is in combat
+        return Players.getLocal().isInCombat();
+    }
+
 }
 
 

@@ -9,6 +9,8 @@ import org.dreambot.api.script.Category;
 import org.dreambot.api.script.ScriptManifest;
 import org.dreambot.api.script.frameworks.treebranch.TreeScript;
 import org.dreambot.api.wrappers.interactive.Player;
+import org.dreambot.api.methods.combat.Combat;
+
 
 import java.awt.*;
 
@@ -60,6 +62,8 @@ public class Main extends TreeScript {
         g.drawString("Local Player Combat Level: " + findTargetLeaf.getLocalPlayerCombatLevel(), x, y);
         y += dy;
         g.drawString("Wilderness Level: " + findTargetLeaf.getWildernessLevel(), x, y);
+        y += dy;
+        g.drawString("In Combat: " + (findTargetLeaf.isLocalPlayerInCombat() ? "Yes" : "No"), x, y);
     }
 
 
