@@ -1,5 +1,8 @@
 import branches.FightAreaBranch;
 import branches.FightingBranch;
+import branches.RoamingBranch;
+import leafs.EatFoodLeaf;
+import leafs.FindTargetLeaf;
 import org.dreambot.api.methods.interactive.Players;
 import org.dreambot.api.methods.map.Area;
 import org.dreambot.api.script.Category;
@@ -7,11 +10,17 @@ import org.dreambot.api.script.ScriptManifest;
 import org.dreambot.api.script.frameworks.treebranch.TreeScript;
 import org.dreambot.api.wrappers.interactive.Player;
 
+import java.awt.*;
+
 @ScriptManifest(name = "F2P Mage Pker Tree", description = "My first pk bot. TreeScript", author = "Dyno",
         version = 0.1, category = Category.COMBAT, image = "")
 public class Main extends TreeScript {
     private FightingBranch fightingBranch;
     private FightAreaBranch fightAreaBranch;
+    private RoamingBranch roamingBranch;
+    private EatFoodLeaf eatFoodLeaf;
+    private FindTargetLeaf findTargetLeaf;
+
 
     @Override
     public void onStart() {
@@ -21,9 +30,36 @@ public class Main extends TreeScript {
         String foodName = "Trout";
         Area fightArea = new Area(3074, 3546, 3097, 3525);
 
-        fightingBranch = new FightingBranch(targetPlayer, foodName);
+        findTargetLeaf = new FindTargetLeaf();
+        eatFoodLeaf = new EatFoodLeaf(foodName);
+
+
+
+
+        fightingBranch = new FightingBranch(targetPlayer, foodName, fightArea, findTargetLeaf);
         fightAreaBranch = new FightAreaBranch(fightArea);
-        addBranches(fightingBranch, fightAreaBranch);
+        roamingBranch = new RoamingBranch(fightArea);
+
+        addBranches(fightingBranch, fightAreaBranch, roamingBranch);
+    }
+
+    @Override
+    public void onPaint(Graphics2D g) {
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial", Font.BOLD, 14));
+
+        int y = 40;  // Start y coordinate for text
+        int dy = 15; // Amount to increment y coordinate for each line of text
+        int x = 10;  // x coordinate for text
+
+        g.drawString("Current HP: " + eatFoodLeaf.getCurrentHPPercent() + "%", x, y);
+        y += dy;
+        Player targetPlayer = findTargetLeaf.getTargetPlayer();
+        g.drawString("Target Player: " + (targetPlayer != null ? targetPlayer.getName() : "None"), x, y);
+        y += dy;
+        g.drawString("Local Player Combat Level: " + findTargetLeaf.getLocalPlayerCombatLevel(), x, y);
+        y += dy;
+        g.drawString("Wilderness Level: " + findTargetLeaf.getWildernessLevel(), x, y);
     }
 
 

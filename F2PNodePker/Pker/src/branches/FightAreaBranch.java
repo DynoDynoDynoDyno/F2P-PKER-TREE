@@ -19,8 +19,8 @@ public class FightAreaBranch extends Branch {
 
     @Override
     public boolean isValid() {
-        // This branch should be executed if the local player is not in the fight area
-        return !fightArea.contains(Players.getLocal());
+        // This branch should be executed if the local player is not in the fight area, and if the local player is not moving
+        return !fightArea.contains(Players.getLocal()) && !Players.getLocal().isMoving();
     }
 }
 
