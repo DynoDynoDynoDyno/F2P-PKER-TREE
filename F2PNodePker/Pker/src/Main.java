@@ -33,7 +33,7 @@ public class Main extends TreeScript {
         findTargetLeaf = new FindTargetLeaf();
         eatFoodLeaf = new EatFoodLeaf(foodName);
 
-        fightingBranch = new FightingBranch(foodName, fightArea);
+        fightingBranch = new FightingBranch(foodName, fightArea, findTargetLeaf);
         fightAreaBranch = new FightAreaBranch(fightArea);
         roamingBranch = new RoamingBranch(fightArea, findTargetLeaf);
 

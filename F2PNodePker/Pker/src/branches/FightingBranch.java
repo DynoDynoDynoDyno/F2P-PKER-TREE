@@ -12,15 +12,16 @@ public class FightingBranch extends Branch {
     private Area fightArea;
     private AttackPlayerLeaf attackPlayerLeaf;
     private EatFoodLeaf eatFoodLeaf;
+    private FindTargetLeaf findTargetLeaf;  // Add this line
 
     private String foodName; // New field to store the name of the food
 
-    public FightingBranch(String foodName, Area fightArea) {
+    public FightingBranch(String foodName, Area fightArea, FindTargetLeaf findTargetLeaf) {  // Add findTargetLeaf to the constructor
         this.foodName = foodName;
         this.fightArea = fightArea;
-        this.attackPlayerLeaf = new AttackPlayerLeaf(findTargetLeaf); // Pass FindTargetLeaf to AttackPlayerLeaf
+        this.findTargetLeaf = findTargetLeaf;  // Initialize findTargetLeaf
+        this.attackPlayerLeaf = new AttackPlayerLeaf(this.findTargetLeaf); // Use this.findTargetLeaf here
         this.eatFoodLeaf = new EatFoodLeaf(this.foodName);
-
         // Add leaves to the branch
         this.addLeaves(attackPlayerLeaf, eatFoodLeaf);
     }
