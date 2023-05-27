@@ -5,6 +5,8 @@ import org.dreambot.api.methods.interactive.Players;
 import org.dreambot.api.script.frameworks.treebranch.Leaf;
 import org.dreambot.api.wrappers.interactive.Player;
 
+import static org.dreambot.api.utilities.Logger.log;
+
 public class FindTargetLeaf extends Leaf {
     private Player targetPlayer;  // Make this an instance variable
 
@@ -20,6 +22,12 @@ public class FindTargetLeaf extends Leaf {
                 p.getLevel() >= (Players.getLocal().getLevel() - Combat.getWildernessLevel()) &&
                 p.getLevel() <= (Players.getLocal().getLevel() + Combat.getWildernessLevel()) &&
                 !p.isInCombat());
+
+        // Logging statements
+        log("Local Player: " + (Players.getLocal() != null ? Players.getLocal().getName() : "None"));
+        log("Wilderness Level: " + Combat.getWildernessLevel());
+        log("Target Player: " + (targetPlayer != null ? targetPlayer.getName() : "None"));
+
         return 50;
     }
 

@@ -20,7 +20,7 @@ public class RoamingLeaf extends Leaf {
 
     @Override
     public boolean isValid() {
-        // Check if more than 7 seconds have passed since the last roam
+        // Check if more than 17 seconds have passed since the last roam
         return System.currentTimeMillis() - lastRoamTime >= 17 * 1000;
     }
 

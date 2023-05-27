@@ -21,26 +21,21 @@ public class Main extends TreeScript {
     private FightAreaBranch fightAreaBranch;
     private RoamingBranch roamingBranch;
     private EatFoodLeaf eatFoodLeaf;
-    private FindTargetLeaf findTargetLeaf;
-
+    private FindTargetLeaf findTargetLeaf;  // Make this a class level variable
 
     @Override
     public void onStart() {
         // Initialize your variables
 
-        Player targetPlayer = Players.closest(p -> p != null && !p.equals(Players.getLocal()));
         String foodName = "Trout";
         Area fightArea = new Area(3074, 3546, 3097, 3525);
 
         findTargetLeaf = new FindTargetLeaf();
         eatFoodLeaf = new EatFoodLeaf(foodName);
 
-
-
-
-        fightingBranch = new FightingBranch(targetPlayer, foodName, fightArea, findTargetLeaf);
+        fightingBranch = new FightingBranch(foodName, fightArea);
         fightAreaBranch = new FightAreaBranch(fightArea);
-        roamingBranch = new RoamingBranch(fightArea);
+        roamingBranch = new RoamingBranch(fightArea, findTargetLeaf);
 
         addBranches(fightingBranch, fightAreaBranch, roamingBranch);
     }
@@ -65,9 +60,10 @@ public class Main extends TreeScript {
         y += dy;
         g.drawString("In Combat: " + (findTargetLeaf.isLocalPlayerInCombat() ? "Yes" : "No"), x, y);
     }
+}
+
 
 
     // ...
-}
 
 
