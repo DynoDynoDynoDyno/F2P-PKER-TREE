@@ -18,11 +18,17 @@ public class AttackPlayerLeaf extends Leaf {
 
     @Override
     public int onLoop() {
-        Player targetPlayer = findTargetLeaf.getTargetPlayer();
-        log("Found player to attack: " + targetPlayer.getName());
-        boolean interactionSuccess = targetPlayer.interact("Attack");
-        log("Interaction success: " + interactionSuccess);
-        return 50;
+        try {
+            Player targetPlayer = findTargetLeaf.getTargetPlayer();
+            log("Found player to attack: " + targetPlayer.getName());
+
+            boolean interactionSuccess = targetPlayer.interact("Attack");
+            log("Interaction success: " + interactionSuccess);
+        } catch (Exception e) {
+            log("Exception occurred: " + e.getMessage());
+        }
+    return 50;
+
     }
 
 }

@@ -23,9 +23,10 @@ public class RoamingBranch extends Branch {
     @Override
     public boolean isValid() {
         Player localPlayer = Players.getLocal();
-        boolean isInCombat = localPlayer != null && localPlayer.isInCombat();
+        boolean isInCombat = (localPlayer != null) ? localPlayer.isInCombat() : false;
         return fightArea.contains(localPlayer) && !isInCombat;
     }
+
 }
 
 
