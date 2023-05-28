@@ -1,8 +1,10 @@
 import branches.FightAreaBranch;
 import branches.FightingBranch;
 import branches.RoamingBranch;
+import branches.SafeAreaBranch;
 import leafs.EatFoodLeaf;
 import leafs.FindTargetLeaf;
+import leafs.CheckFoodLeaf;
 import org.dreambot.api.methods.interactive.Players;
 import org.dreambot.api.methods.map.Area;
 import org.dreambot.api.script.Category;
@@ -17,9 +19,11 @@ import java.awt.*;
 @ScriptManifest(name = "F2P Mage Pker Tree", description = "My first pk bot. TreeScript", author = "Dyno",
         version = 0.1, category = Category.COMBAT, image = "")
 public class Main extends TreeScript {
+    private CheckFoodLeaf checkFoodLeaf;
     private FightingBranch fightingBranch;
     private FightAreaBranch fightAreaBranch;
     private RoamingBranch roamingBranch;
+    private SafeAreaBranch safeAreaBranch;
     private EatFoodLeaf eatFoodLeaf;
     private FindTargetLeaf findTargetLeaf;  // Make this a class level variable
 
@@ -28,16 +32,19 @@ public class Main extends TreeScript {
         // Initialize your variables
 
         String foodName = "Trout";
-        Area fightArea = new Area(3087, 3735, 3074, 3723);
+        Area fightArea = new Area(3087, 3730, 3074, 3722);
+        Area safeArea = new Area(3092, 3498, 3094, 3489);
 
         findTargetLeaf = new FindTargetLeaf();
         eatFoodLeaf = new EatFoodLeaf(foodName);
+        checkFoodLeaf = new CheckFoodLeaf(foodName);
 
-        fightingBranch = new FightingBranch(foodName, fightArea, findTargetLeaf);
-        fightAreaBranch = new FightAreaBranch(fightArea);
-        roamingBranch = new RoamingBranch(fightArea, findTargetLeaf);
+        FightingBranch fightingBranch = new FightingBranch(foodName, fightArea, findTargetLeaf);
+        FightAreaBranch fightAreaBranch = new FightAreaBranch(fightArea);
+        RoamingBranch roamingBranch = new RoamingBranch(fightArea, findTargetLeaf);
+        SafeAreaBranch safeAreaBranch = new SafeAreaBranch(safeArea, checkFoodLeaf);
 
-        addBranches(fightingBranch, fightAreaBranch, roamingBranch);
+        addBranches(fightingBranch, fightAreaBranch, roamingBranch, safeAreaBranch);
     }
 
     @Override
@@ -64,6 +71,8 @@ public class Main extends TreeScript {
 
 
 
-    // ...
+    // ... 5/28 working on getting the script to actually detect low food and walk to the safe area
+    // Also, bot does not actively attack a player that is already attacking it. Need check if enemy player is already
+    //attacking your player
 
 

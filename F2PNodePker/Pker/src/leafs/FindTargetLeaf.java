@@ -22,8 +22,10 @@ public class FindTargetLeaf extends Leaf {
                 p.getLevel() >= (Players.getLocal().getLevel() - Combat.getWildernessLevel()) &&
                 p.getLevel() <= (Players.getLocal().getLevel() + Combat.getWildernessLevel()) &&
                 !p.isInCombat());
-        targetPlayer.interact("Attack");
 
+        if (targetPlayer != null) {
+            targetPlayer.interact("Attack");
+        }
         // Logging statements
         log("Local Player: " + (Players.getLocal() != null ? Players.getLocal().getName() : "None"));
         log("Wilderness Level: " + Combat.getWildernessLevel());
