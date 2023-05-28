@@ -20,9 +20,11 @@ public class AttackPlayerLeaf extends Leaf {
     public int onLoop() {
         Player targetPlayer = findTargetLeaf.getTargetPlayer();
         log("Found player to attack: " + targetPlayer.getName());
-        targetPlayer.interact("Attack");
+        boolean interactionSuccess = targetPlayer.interact("Attack");
+        log("Interaction success: " + interactionSuccess);
         return 50;
     }
+
 }
 
 

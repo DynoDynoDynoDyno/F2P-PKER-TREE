@@ -28,7 +28,7 @@ public class Main extends TreeScript {
         // Initialize your variables
 
         String foodName = "Trout";
-        Area fightArea = new Area(3074, 3546, 3097, 3525);
+        Area fightArea = new Area(3087, 3735, 3074, 3723);
 
         findTargetLeaf = new FindTargetLeaf();
         eatFoodLeaf = new EatFoodLeaf(foodName);
